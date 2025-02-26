@@ -1,4 +1,4 @@
-module Eq (pcanEqMixin, seq_eqType, iffP, eq_op, unsafeCoerce, option_eqType, seq_predType, eq_rec_r) where
+module Eq (pcanEqMixin, seq_eqType, iffP, eq_op, unsafeCoerce, option_eqType, seq_predType, eq_rec_r, seq) where
 
 import Any (unsafeCoerce)
 import OtDef (Axiom, Mixin_of (Mixin), Reflect (ReflectF, ReflectT), Rel, Sort, Type)
@@ -164,19 +164,18 @@ eqseqP t _top_assumption_ =
                       (:) x x0 -> _evar_0_1 x x0
        in list_rect _evar_0_ _evar_0_0 _top_assumption_
 
-type Seq_eqclass = ([]) Sort
+type Seq_eqclass = [] Sort
 
 pred_of_seq :: Type -> Seq_eqclass -> Pred_sort Sort
-pred_of_seq t0 s =
-  unsafeCoerce mem_seq t0 s
+pred_of_seq = unsafeCoerce mem_seq
 
 seq_predType :: Type -> PredType0 Sort
 seq_predType t0 =
   predType (unsafeCoerce pred_of_seq t0)
 
-mem_seq :: Type -> (([]) Sort) -> Sort -> Prelude.Bool
+mem_seq :: Type -> [] Sort -> Sort -> Prelude.Bool
 mem_seq t0 s =
   case s of
-    ([]) -> (\_ -> Prelude.False)
+    [] -> const Prelude.False
     (:) y s' ->
       let p = mem_seq t0 s' in (\x -> (Prelude.||) (eq_op t0 x y) (p x))

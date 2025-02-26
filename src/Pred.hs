@@ -24,4 +24,4 @@ newtype Mem_pred t
 
 mkPredType :: (a2 -> a1 -> Prelude.Bool) -> PredType0 a1
 mkPredType toP =
-  PredType (unsafeCoerce toP) (\p -> Mem (\x -> unsafeCoerce toP p x))
+  PredType (unsafeCoerce toP) (Mem . unsafeCoerce toP)

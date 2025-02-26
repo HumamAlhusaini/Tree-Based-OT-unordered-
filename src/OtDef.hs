@@ -8,6 +8,8 @@ module OtDef (
   Rel,
   Axiom,
   Pred,
+  t,
+  r,
 ) where
 
 import Any (Any)
@@ -24,6 +26,13 @@ type Axiom t = t -> t -> Reflect
 data Mixin_of t
   = Mixin (Rel t) (Axiom t)
 
+t :: Type
+t =
+  Prelude.error "AXIOM TO BE REALIZED"
+
+r :: Rel Sort
+r =
+  Prelude.error "AXIOM TO BE REALIZED"
 data Reflect
   = ReflectT
   | ReflectF

@@ -1,3 +1,5 @@
+{-# LANGUAGE LambdaCase #-}
+
 module Computability (
 
 ) where
@@ -6,13 +8,13 @@ import Encoding (encode)
 import Fs (Raw_fs_cmd (RawCreate, RawOpen))
 import Tree (Tree, addn, foldr, map)
 
-weight :: (Tree a1) -> Prelude.Integer
+weight :: Tree a1 -> Prelude.Integer
 weight t0 =
   Tree.foldr
     addn
     0
     ( Tree.map
-        ( \o -> case o of
+        ( \case
             Prelude.Just _ -> succ 0
             Prelude.Nothing -> 0
         )
